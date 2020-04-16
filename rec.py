@@ -22,7 +22,7 @@ print(sd.query_devices())
 in_device = 10
 out_device = 3
 CHANNEL = 1
-fs = 44100
+fs = 16000
 sd.default.device = [in_device, out_device]
 sd.default.samplerate = fs
 
