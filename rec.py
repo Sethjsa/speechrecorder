@@ -11,18 +11,18 @@ import soundfile as sf
 path = Path("recordings")
 path.mkdir(exist_ok=True)
 
-with open("utts.data", "r") as f:
+with open("cc.data", "r") as f:
     arctic = f.readlines()
-labels = list(map(lambda x: x[2:14], arctic))
-utts = list(map(lambda x: x[16:-4], arctic))
+labels = list(map(lambda x: x[2:9], arctic))
+utts = list(map(lambda x: x[11:-3], arctic))
 
 print(sd.query_devices())
 # Fill in the device you want to use for input (and set the channel you want to record over, in my case device 10 is an
 # audio interface, and the microphone is plugged into the first input (channel 1)) and output (used for playback)
-in_device = 10
+in_device = 8
 out_device = 3
 CHANNEL = 1
-fs = 16000
+fs = 44100
 sd.default.device = [in_device, out_device]
 sd.default.samplerate = fs
 
@@ -117,6 +117,10 @@ if __name__ == "__main__":
             if i == len(utts) - 1:
                 i = len(utts)
                 text.set("End of list already reached! Go back :)")
+                if record.value:
+                    record.value = 0
+                    p.join(0)
+                    l.config(fg="green")
             else:
                 i += 1
                 text.set("{}".format(utts[i]))
@@ -141,8 +145,8 @@ if __name__ == "__main__":
     ll = tk.Label(textvariable=label, fg="green", font=("Helvetica", 60), anchor="sw", justify="left")
     # Make wraplength some function of window size and adjust placement accordingly in the future
     l = tk.Label(textvariable=text, fg="green", font=("Helvetica", 60), anchor="center", justify="center",
-                 wraplength=600)
+                 wraplength=700)
     ll.place(y=0)
-    l.place(rely=0.2, relx=0.2)
+    l.place(rely=0.1, relx=0.2)
     
     root.mainloop()
