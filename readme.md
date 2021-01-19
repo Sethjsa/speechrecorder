@@ -1,3 +1,7 @@
+# Newer version
+The fork at https://github.com/dan-wells/speechrecorder contains many good updates and 
+should be instead of this first version.
+
 # Basic SpeechRecorder clone
 
 `rec.py` contains a basic
